@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trakzee Mobile Design System & UI Guideline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./theme.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #0F172A;
+      color: #F8FAFC;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Banner */
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid #1E293B;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-squircle);
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 14px var(--color-primary-glow);
+    }
+
+    .brand-title h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-title span {
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    /* Main Container */
+    .workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Left Sidebar: Tokens & Specs */
+    .sidebar {
+      width: 520px;
+      background: #0B1120;
+      border-right: 1px solid #1E293B;
+      padding: 32px;
+      overflow-y: auto;
+      height: calc(100vh - 73px);
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #1E293B;
+    }
+
+    .token-card {
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .color-swatch {
+      background: #131C31;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .swatch-preview {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    .swatch-info h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #F8FAFC;
+    }
+
+    .swatch-info code {
+      font-size: 11px;
+      color: #94A3B8;
+    }
+
+    /* Category Pastel Badges Preview */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Right Preview Area: Simulated Mobile Phone */
+    .preview-canvas {
+      flex: 1;
+      background: radial-gradient(circle at 50% 20%, #1E293B 0%, #0F172A 80%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+      height: calc(100vh - 73px);
+    }
+
+    .phone-selector {
+      display: flex;
+      background: #1E293B;
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      gap: 4px;
+      border: 1px solid #334155;
+    }
+
+    .phone-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #94A3B8;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .phone-tab.active {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    /* Mobile Frame */
+    .mobile-frame {
+      width: 390px;
+      min-height: 844px;
+      background: var(--color-canvas);
+      border-radius: 48px;
+      border: 8px solid #334155;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      color: var(--color-text-primary);
+    }
+
+    /* Dynamic Island / Notch */
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background: #000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+
+    .phone-status-bar {
+      height: 48px;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 90;
+      position: relative;
+    }
+
+    /* Atmospheric Sky-Blue Radial Glow */
+    .phone-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 220px;
+      background: radial-gradient(ellipse at 50% -20%, #D8EEFE 0%, rgba(248, 250, 252, 0) 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .phone-body {
+      padding: 0 18px 90px 18px;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* In-Phone Components */
+    .phone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 9999px;
+      background: #C7D2FE;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #3730A3;
+      border: 2px solid #fff;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-squircle);
+      background: #fff;
+      border: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Metric Grid */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .metric-card {
+      background: #fff;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .metric-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .squircle-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trend-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .metric-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin-bottom: 2px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      height: 4px;
+      border-radius: 9999px;
+      background: var(--color-surface-subtle);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 9999px;
+    }
+
+    /* Calendar Strip */
+    .calendar-strip {
+      background: #fff;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 14px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .date-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+
+    .date-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+
+    .date-pill.active {
+      background: var(--color-primary);
+      color: #fff;
+      box-shadow: 0 4px 10px var(--color-primary-glow);
+    }
+
+    .date-pill strong {
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    /* Project Cards */
+    .project-card {
+      background: #fff;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-card);
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .project-sub {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    .status-badge {
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-high {
+      background: var(--status-high-bg);
+      color: var(--status-high-text);
+    }
+
+    .badge-med {
+      background: var(--status-med-bg);
+      color: var(--status-med-text);
+    }
+
+    .badge-low {
+      background: var(--status-low-bg);
+      color: var(--status-low-text);
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: absolute;
+      bottom: 96px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      background: var(--color-primary);
+      border-radius: var(--radius-pill);
+      border: none;
+      color: #fff;
+      font-size: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-fab);
+      cursor: pointer;
+      z-index: 40;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: #fff;
+      border-top: 1px solid var(--color-border-subtle);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 16px;
+      z-index: 50;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-item.active {
+      color: var(--color-primary);
+    }
+
+    .nav-indicator {
+      position: absolute;
+      top: -12px;
+      width: 32px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--color-primary);
+    }
+
+    /* Segmented Control */
+    .segmented-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .seg-pill {
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--color-border-input);
+      background: #fff;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+    }
+
+    .seg-pill.active {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+
+    /* Input Field */
+    .input-group {
+      margin-bottom: 14px;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 6px;
+    }
+
+    .text-input {
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-input);
+      border: 1px solid var(--color-border-input);
+      background: #fff;
+      padding: 0 16px;
+      font-size: 14px;
+      color: var(--color-text-primary);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .text-input:focus, .text-input.focused {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(0, 149, 255, 0.12);
+    }
+
+    /* Primary CTA */
+    .primary-cta {
+      width: 100%;
+      height: 52px;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-input);
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: var(--shadow-primary-cta);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .primary-cta.disabled {
+      background: var(--color-surface-subtle);
+      color: var(--color-text-muted);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand-title">
+      <div class="logo-badge">T</div>
+      <div>
+        <h1>Trakzee Mobile Design System</h1>
+        <span>Specification & Component Guide • 13 Reference Screens</span>
+      </div>
+    </div>
+    <div>
+      <span style="font-size: 12px; background: #1E293B; padding: 6px 12px; border-radius: 9999px; border: 1px solid #334155; color: #38BDF8;">
+        Theme: Soft SaaS Modern
+      </span>
+    </div>
+  </header>
+
+  <!-- Workspace Container -->
+  <div class="workspace">
+    
+    <!-- Left Sidebar: Tokens & Specifications -->
+    <div class="sidebar">
+      
+      <div class="section-title">1. Core Brand Colors</div>
+      <div class="color-grid">
+        <div class="color-swatch">
+          <div class="swatch-preview" style="background: #0095FF;"></div>
+          <div class="swatch-info">
+            <h4>Primary Sky Blue</h4>
+            <code>#0095FF</code>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-preview" style="background: #0077E6;"></div>
+          <div class="swatch-info">
+            <h4>Primary Dark</h4>
+            <code>#0077E6</code>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-preview" style="background: #E0F2FE;"></div>
+          <div class="swatch-info">
+            <h4>Sky Pastel Light</h4>
+            <code>#E0F2FE</code>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="swatch-preview" style="background: #F8FAFC; border: 1px solid #334155;"></div>
+          <div class="swatch-info">
+            <h4>Canvas Background</h4>
+            <code>#F8FAFC</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">2. Category Squircle Accents</div>
+      <div class="category-pills">
+        <div class="cat-item" style="background: #E0F2FE; color: #0284C7;">● Fleet / Vehicles</div>
+        <div class="cat-item" style="background: #F3E8FF; color: #9333EA;">● Geofence / History</div>
+        <div class="cat-item" style="background: #DCFCE7; color: #16A34A;">● Fuel / Eco-Drive</div>
+        <div class="cat-item" style="background: #FFEDD5; color: #EA580C;">● Maintenance</div>
+        <div class="cat-item" style="background: #FEE2E2; color: #DC2626;">● SOS / Faults</div>
+        <div class="cat-item" style="background: #FCE7F3; color: #DB2777;">● Trips & Routes</div>
+      </div>
+
+      <div class="section-title">3. Status Badges</div>
+      <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+        <span class="status-badge badge-high">High Priority</span>
+        <span class="status-badge badge-med">Medium Priority</span>
+        <span class="status-badge badge-low">Low / Normal</span>
+      </div>
+
+      <div class="section-title">4. Corner Radius Guidelines</div>
+      <div class="token-card" style="font-size: 13px; line-height: 1.8;">
+        <div><code>14px</code> — Squircle icon badge, small header buttons</div>
+        <div><code>16px</code> — Text fields, textareas, segmented switches</div>
+        <div><code>18px</code> — Standard cards, task items, settings groups</div>
+        <div><code>24px</code> — Hero gradient cards, large banners</div>
+        <div><code>30px</code> — Bottom sheet modal top corners</div>
+        <div><code>9999px</code> — Chips, badges, FAB, date pills</div>
+      </div>
+
+      <div class="section-title">5. Trakzee Telematics Mapping</div>
+      <div class="token-card" style="font-size: 13px; line-height: 1.6; color: #94A3B8;">
+        <p style="margin-bottom: 8px;"><strong style="color: #F8FAFC;">Dashboard Cards:</strong> Replace "Clients & Tasks" with "Active Fleet (837)" and "Open Alerts (20)".</p>
+        <p style="margin-bottom: 8px;"><strong style="color: #F8FAFC;">Project Cards:</strong> Map directly to "Vehicle Groups" or "Route Assignments" with completion progress rings.</p>
+        <p style="margin-bottom: 8px;"><strong style="color: #F8FAFC;">Ticket Screen:</strong> Map directly to "Driver Assistance / Maintenance Requests".</p>
+        <p><strong style="color: #F8FAFC;">Bottom Sheet:</strong> Quick actions for "Add Geofence", "Assign Vehicle", "Log Fuel", "Report Issue".</p>
+      </div>
+
+    </div>
+
+    <!-- Right Side: Live Interactive Mobile Simulator -->
+    <div class="preview-canvas">
+      
+      <!-- Screen Switcher -->
+      <div class="phone-selector">
+        <button class="phone-tab active" onclick="switchScreen('dashboard')">Dashboard</button>
+        <button class="phone-tab" onclick="switchScreen('projects')">Fleet / Projects</button>
+        <button class="phone-tab" onclick="switchScreen('form')">New Task / Form</button>
+      </div>
+
+      <!-- Simulated Mobile Device -->
+      <div class="mobile-frame">
+        <div class="dynamic-island"></div>
+        <div class="phone-glow"></div>
+
+        <!-- Status Bar -->
+        <div class="phone-status-bar">
+          <span>9:41</span>
+          <div style="display: flex; gap: 4px; align-items: center;">
+            <span style="font-size: 11px;">5G</span>
+            <span>●●●</span>
+          </div>
+        </div>
+
+        <!-- Phone Content Area -->
+        <div class="phone-body" id="screen-dashboard">
+          
+          <!-- Header -->
+          <div class="phone-header" style="margin-top: 8px;">
+            <div class="user-pill">
+              <div class="avatar">TK</div>
+              <div>
+                <div style="font-size: 11px; color: var(--color-text-secondary);">Good morning</div>
+                <div style="font-size: 16px; font-weight: 800;">Tahsan 👋</div>
+              </div>
+            </div>
+            <div class="header-icons">
+              <div class="icon-btn">💬</div>
+              <div class="icon-btn">🔔</div>
+            </div>
+          </div>
+
+          <!-- 2-Column Metric Grid -->
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-card-top">
+                <div class="squircle-icon" style="background: #EDE9FE; color: #7C3AED;">👥</div>
+                <span class="trend-tag" style="background: #DCFCE7; color: #16A34A;">+14.2%</span>
+              </div>
+              <div class="metric-num">837</div>
+              <div class="metric-label">Active vehicles</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 70%; background: #7C3AED;"></div>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-card-top">
+                <div class="squircle-icon" style="background: #FFEDD5; color: #EA580C;">⏱️</div>
+                <span class="trend-tag" style="background: #FEE2E2; color: #EF4444;">-01.1%</span>
+              </div>
+              <div class="metric-num">20</div>
+              <div class="metric-label">Open alerts</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%; background: #EA580C;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Strip -->
+          <div class="calendar-strip">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 14px; font-weight: 700;">This week</span>
+              <span style="font-size: 12px; font-weight: 700; color: var(--color-primary);">April 2026 ›</span>
+            </div>
+            <div class="date-row">
+              <div class="date-pill">Thu<strong>10</strong></div>
+              <div class="date-pill active">Fri<strong>11</strong></div>
+              <div class="date-pill">Sat<strong>12</strong></div>
+              <div class="date-pill">Sun<strong>13</strong></div>
+              <div class="date-pill">Mon<strong>14</strong></div>
+              <div class="date-pill">Tue<strong>15</strong></div>
+            </div>
+          </div>
+
+          <!-- Project Summary -->
+          <div style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">Active Dispatches</div>
+          
+          <div class="project-card">
+            <div class="project-top">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <div class="squircle-icon" style="background: #E0F2FE; color: #0284C7;">🚚</div>
+                <div>
+                  <div class="project-title">North Logistics Zone</div>
+                  <div class="project-sub">14 Vehicles · Active</div>
+                </div>
+              </div>
+              <span class="status-badge badge-high">High</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--color-text-secondary);">
+              <span>Progress: <strong>72%</strong></span>
+              <span>28 Apr target</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Phone Content Area: Fleet / Projects -->
+        <div class="phone-body" id="screen-projects" style="display: none;">
+          <div class="phone-header" style="margin-top: 12px;">
+            <h2 style="font-size: 22px; font-weight: 800;">Fleet Groups</h2>
+            <div class="header-icons">
+              <div class="icon-btn">💬</div>
+              <div class="icon-btn">🔔</div>
+            </div>
+          </div>
+
+          <!-- Search Input -->
+          <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+            <input type="text" class="text-input" placeholder="Search vehicles, drivers..." style="flex: 1;">
+            <div class="icon-btn" style="width: 48px; height: 48px;">🔍</div>
+          </div>
+
+          <!-- Filter Pills -->
+          <div class="segmented-tabs">
+            <div class="seg-pill active">All 5</div>
+            <div class="seg-pill">Active 3</div>
+            <div class="seg-pill">Idle 1</div>
+            <div class="seg-pill">Done 1</div>
+          </div>
+
+          <!-- Project Card 1 -->
+          <div class="project-card">
+            <div class="project-top">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <div class="squircle-icon" style="background: #E0F2FE; color: #0284C7;">🏢</div>
+                <div>
+                  <div class="project-title">Office Logistics Fleet</div>
+                  <div class="project-sub">Nordwind Group</div>
+                </div>
+              </div>
+              <span class="status-badge badge-high">High</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--color-text-secondary);">
+              <span style="font-weight: 700; color: #0284C7;">72% Complete</span>
+              <span>34 / 47 tasks</span>
+            </div>
+          </div>
+
+          <!-- Project Card 2 -->
+          <div class="project-card">
+            <div class="project-top">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <div class="squircle-icon" style="background: #F3E8FF; color: #9333EA;">⏱️</div>
+                <div>
+                  <div class="project-title">Express Delivery Batch</div>
+                  <div class="project-sub">Helix Health</div>
+                </div>
+              </div>
+              <span class="status-badge badge-med">Medium</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--color-text-secondary);">
+              <span style="font-weight: 700; color: #9333EA;">45% Complete</span>
+              <span>21 / 52 tasks</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Phone Content Area: Form -->
+        <div class="phone-body" id="screen-form" style="display: none;">
+          <div class="phone-header" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 11px; color: var(--color-text-secondary);">Create</div>
+              <h2 style="font-size: 20px; font-weight: 800;">New Task</h2>
+            </div>
+            <div class="icon-btn">✕</div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Task title</label>
+            <input type="text" class="text-input" value="Audit telematics sensor calibration">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Description</label>
+            <textarea class="text-input focused" style="height: 80px; padding-top: 10px;">Check GPS drift and odometer discrepancy on truck series B.</textarea>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Priority</label>
+            <div class="segmented-tabs">
+              <div class="seg-pill">High</div>
+              <div class="seg-pill active">Medium</div>
+              <div class="seg-pill">Low</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button class="primary-cta">Create Task</button>
+          </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <button class="fab">+</button>
+
+        <!-- Bottom Navigation Bar -->
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <div class="nav-indicator"></div>
+            <span>⊞</span>
+            <span>Home</span>
+          </div>
+          <div class="nav-item">
+            <span>📁</span>
+            <span>Fleet</span>
+          </div>
+          <div class="nav-item">
+            <span>☑</span>
+            <span>Board</span>
+          </div>
+          <div class="nav-item">
+            <span>📅</span>
+            <span>Calendar</span>
+          </div>
+          <div class="nav-item">
+            <span>⚙</span>
+            <span>More</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function switchScreen(screen) {
+      document.querySelectorAll('.phone-tab').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      document.getElementById('screen-dashboard').style.display = 'none';
+      document.getElementById('screen-projects').style.display = 'none';
+      document.getElementById('screen-form').style.display = 'none';
+
+      document.getElementById('screen-' + screen).style.display = 'block';
+    }
+  </script>
+</body>
+</html>

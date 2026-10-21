@@ -1,0 +1,74 @@
+/**
+ * Trakzee Mobile Design System - Theme CSS Variables
+ * Extracted & unified from 13 Reference Mobile Screens
+ */
+
+:root {
+  /* Brand & Core Action Colors */
+  --color-primary: #0095FF;
+  --color-primary-dark: #0077E6;
+  --color-primary-light: #E0F2FE;
+  --color-primary-glow: rgba(0, 149, 255, 0.30);
+
+  /* Backgrounds & Canvas */
+  --color-canvas: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F1F5F9;
+  --color-scrim: rgba(15, 23, 42, 0.45);
+
+  /* Typography Colors */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94A3B8;
+  --color-text-inverse: #FFFFFF;
+
+  /* Borders & Dividers */
+  --color-border-subtle: #EEF2F6;
+  --color-border-input: #E2E8F0;
+  --color-border-focus: #0095FF;
+  --color-border-dashed: #CBD5E1;
+
+  /* Priority & Status */
+  --status-high-bg: #FEE2E2;
+  --status-high-text: #EF4444;
+  --status-med-bg: #FEF3C7;
+  --status-med-text: #D97706;
+  --status-low-bg: #DCFCE7;
+  --status-low-text: #16A34A;
+  --status-online-dot: #22C55E;
+
+  /* Category Pastel Accents (Icon Squircles & Badges) */
+  --category-blue-bg: #E0F2FE;
+  --category-blue-icon: #0284C7;
+  --category-purple-bg: #F3E8FF;
+  --category-purple-icon: #9333EA;
+  --category-pink-bg: #FCE7F3;
+  --category-pink-icon: #DB2777;
+  --category-green-bg: #DCFCE7;
+  --category-green-icon: #16A34A;
+  --category-orange-bg: #FFEDD5;
+  --category-orange-icon: #EA580C;
+  --category-salmon-bg: #FEE2E2;
+  --category-salmon-icon: #DC2626;
+
+  /* Corner Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-squircle: 14px;
+  --radius-input: 16px;
+  --radius-card: 18px;
+  --radius-card-lg: 24px;
+  --radius-sheet: 30px;
+  --radius-pill: 9999px;
+
+  /* Shadows & Elevations */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-card-elevated: 0 8px 16px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-primary-cta: 0 8px 20px rgba(0, 149, 255, 0.28);
+  --shadow-fab: 0 10px 24px rgba(0, 149, 255, 0.35);
+  --shadow-sheet: 0 -8px 28px rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://tokens.studio/schemas/token-set.json",
+  "name": "Trakzee Mobile Design System",
+  "version": "1.0.0",
+  "color": {
+    "brand": {
+      "primary": { "value": "#0095FF", "type": "color", "description": "Electric Sky Blue - primary CTA, active states, progress indicators" },
+      "primary-dark": { "value": "#0077E6", "type": "color", "description": "Deeper blue for hero card gradients and pressed states" },
+      "primary-light": { "value": "#E0F2FE", "type": "color", "description": "Soft sky blue pastel tint for badges, subtle fills and active icon backgrounds" },
+      "primary-hover": { "value": "#0084E3", "type": "color", "description": "Hover / touch highlight state for primary buttons" }
+    },
+    "background": {
+      "canvas": { "value": "#F8FAFC", "type": "color", "description": "Primary screen canvas background (clean, cool-neutral)" },
+      "surface": { "value": "#FFFFFF", "type": "color", "description": "Card surface, modal surface, and elevated panels" },
+      "surface-subtle": { "value": "#F1F5F9", "type": "color", "description": "Disabled button backgrounds, secondary button hover, inactive pills" },
+      "scrim": { "value": "rgba(15, 23, 42, 0.45)", "type": "color", "description": "Backdrop scrim for bottom sheets and modals" }
+    },
+    "text": {
+      "primary": { "value": "#0F172A", "type": "color", "description": "High-contrast headings, card titles, and primary numbers" },
+      "secondary": { "value": "#475569", "type": "color", "description": "Body copy, subtitles, metadata, and unselected tab labels" },
+      "muted": { "value": "#94A3B8", "type": "color", "description": "Form input placeholders, timestamps, disabled button text" },
+      "inverse": { "value": "#FFFFFF", "type": "color", "description": "White text on primary buttons, active pills, and hero banners" }
+    },
+    "border": {
+      "subtle": { "value": "#EEF2F6", "type": "color", "description": "Card borders, divider lines, and segmented controls" },
+      "input": { "value": "#E2E8F0", "type": "color", "description": "Default text input and textarea borders" },
+      "input-focus": { "value": "#0095FF", "type": "color", "description": "Focused text field and selected option card outline" },
+      "dashed": { "value": "#CBD5E1", "type": "color", "description": "Attachment upload dashed border" }
+    },
+    "category": {
+      "blue": {
+        "bg": { "value": "#E0F2FE", "type": "color" },
+        "icon": { "value": "#0284C7", "type": "color" }
+      },
+      "purple": {
+        "bg": { "value": "#F3E8FF", "type": "color" },
+        "icon": { "value": "#9333EA", "type": "color" }
+      },
+      "pink": {
+        "bg": { "value": "#FCE7F3", "type": "color" },
+        "icon": { "value": "#DB2777", "type": "color" }
+      },
+      "green": {
+        "bg": { "value": "#DCFCE7", "type": "color" },
+        "icon": { "value": "#16A34A", "type": "color" }
+      },
+      "orange": {
+        "bg": { "value": "#FFEDD5", "type": "color" },
+        "icon": { "value": "#EA580C", "type": "color" }
+      },
+      "salmon": {
+        "bg": { "value": "#FEE2E2", "type": "color" },
+        "icon": { "value": "#DC2626", "type": "color" }
+      }
+    },
+    "status": {
+      "high": {
+        "bg": { "value": "#FEE2E2", "type": "color" },
+        "text": { "value": "#EF4444", "type": "color" }
+      },
+      "medium": {
+        "bg": { "value": "#FEF3C7", "type": "color" },
+        "text": { "value": "#D97706", "type": "color" }
+      },
+      "low": {
+        "bg": { "value": "#DCFCE7", "type": "color" },
+        "text": { "value": "#16A34A", "type": "color" }
+      },
+      "online": {
+        "dot": { "value": "#22C55E", "type": "color" }
+      }
+    }
+  },
+  "borderRadius": {
+    "none": { "value": "0px", "type": "borderRadius" },
+    "sm": { "value": "8px", "type": "borderRadius" },
+    "md": { "value": "12px", "type": "borderRadius" },
+    "squircle": { "value": "14px", "type": "borderRadius", "description": "Icon badges, small buttons, header icons" },
+    "input": { "value": "16px", "type": "borderRadius", "description": "Inputs, textareas, segmented controls" },
+    "card": { "value": "18px", "type": "borderRadius", "description": "Standard cards, list cards, action items" },
+    "card-lg": { "value": "24px", "type": "borderRadius", "description": "Hero banners, large container cards" },
+    "sheet": { "value": "30px", "type": "borderRadius", "description": "Bottom sheet top corners" },
+    "pill": { "value": "9999px", "type": "borderRadius", "description": "Filter chips, status tags, FAB, calendar dates" }
+  },
+  "spacing": {
+    "1": { "value": "4px", "type": "spacing" },
+    "2": { "value": "8px", "type": "spacing" },
+    "3": { "value": "12px", "type": "spacing" },
+    "4": { "value": "16px", "type": "spacing" },
+    "5": { "value": "20px", "type": "spacing" },
+    "6": { "value": "24px", "type": "spacing" },
+    "8": { "value": "32px", "type": "spacing" }
+  },
+  "elevation": {
+    "card": {
+      "value": "0 2px 8px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02)",
+      "type": "boxShadow"
+    },
+    "card-hover": {
+      "value": "0 8px 16px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.03)",
+      "type": "boxShadow"
+    },
+    "fab": {
+      "value": "0 10px 24px rgba(0, 149, 255, 0.35)",
+      "type": "boxShadow"
+    },
+    "primary-cta": {
+      "value": "0 8px 20px rgba(0, 149, 255, 0.28)",
+      "type": "boxShadow"
+    },
+    "sheet": {
+      "value": "0 -8px 28px rgba(0, 0, 0, 0.08)",
+      "type": "boxShadow"
+    }
+  },
+  "typography": {
+    "fontFamily": { "value": "Plus Jakarta Sans, Inter, -apple-system, BlinkMacSystemFont, sans-serif", "type": "fontFamily" },
+    "fontSize": {
+      "xs": { "value": "11px", "type": "fontSize" },
+      "sm": { "value": "13px", "type": "fontSize" },
+      "base": { "value": "15px", "type": "fontSize" },
+      "md": { "value": "16px", "type": "fontSize" },
+      "lg": { "value": "18px", "type": "fontSize" },
+      "xl": { "value": "22px", "type": "fontSize" },
+      "2xl": { "value": "28px", "type": "fontSize" },
+      "hero": { "value": "36px", "type": "fontSize" }
+    },
+    "fontWeight": {
+      "regular": { "value": "400", "type": "fontWeight" },
+      "medium": { "value": "500", "type": "fontWeight" },
+      "semibold": { "value": "600", "type": "fontWeight" },
+      "bold": { "value": "700", "type": "fontWeight" }
+    }
+  }
+}
