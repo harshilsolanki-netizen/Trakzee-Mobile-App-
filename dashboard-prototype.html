@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trakzee Redesigned Mobile Dashboard — Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./theme.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #0B1120;
+      color: var(--color-text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px;
+    }
+
+    /* Top Demo Bar */
+    .prototype-bar {
+      width: 100%;
+      max-width: 480px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1E293B;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      color: #F8FAFC;
+    }
+
+    .prototype-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    /* Mobile Frame */
+    .phone-container {
+      width: 100%;
+      max-width: 420px;
+      min-height: 900px;
+      background: var(--color-canvas);
+      border-radius: 46px;
+      border: 10px solid #1E293B;
+      box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.75);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Atmospheric Sky-Blue Glow behind status bar & header */
+    .phone-atmospheric-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 240px;
+      background: radial-gradient(ellipse at 50% -25%, #CEE7FE 0%, rgba(248, 250, 252, 0) 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* iOS Dynamic Island & Status Bar */
+    .status-bar {
+      height: 48px;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 20;
+      position: relative;
+    }
+
+    .dynamic-island {
+      width: 124px;
+      height: 32px;
+      background: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+    }
+
+    /* Main Scrollable Content */
+    .dashboard-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 16px 110px 16px;
+      position: relative;
+      z-index: 10;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* App Header */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .header-title-group h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .header-title-group span {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .header-icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-squircle);
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      color: var(--color-text-secondary);
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .header-icon-btn:hover {
+      background: #F8FAFC;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      width: 7px;
+      height: 7px;
+      background: #EF4444;
+      border-radius: 9999px;
+      border: 1.5px solid #FFFFFF;
+    }
+
+    /* Reusable Modern Card */
+    .widget-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--color-border-subtle);
+      box-shadow: var(--shadow-card);
+      padding: 18px;
+      margin-bottom: 14px;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .widget-card:hover {
+      box-shadow: var(--shadow-card-elevated);
+    }
+
+    /* Card Header */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-squircle-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.2px;
+    }
+
+    /* Interactive Filter Pill Buttons */
+    .filter-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border-input);
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-primary);
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .filter-pill-btn:hover {
+      background: var(--color-primary-light);
+    }
+
+    /* ---------------------------------------
+       WIDGET 1: FLEET STATUS (Donut Chart)
+    --------------------------------------- */
+    .fleet-status-body {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .donut-chart-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+    }
+
+    .donut-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .donut-center-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      line-height: 1;
+    }
+
+    .donut-center-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      margin-top: 3px;
+    }
+
+    /* Fleet Legend */
+    .fleet-legend-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .legend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 3px 0;
+    }
+
+    .legend-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+
+    .status-dot-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+    }
+
+    .legend-val {
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .legend-pct {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-left: 4px;
+      font-weight: 500;
+    }
+
+    /* Availability Sub-Banner */
+    .availability-card {
+      background: #F8FAFC;
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid #EEF2F6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .availability-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+    }
+
+    .availability-stat {
+      text-align: right;
+    }
+
+    .availability-pct {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+
+    .availability-sub {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* ---------------------------------------
+       WIDGET 2: FLEET AVERAGE SCORE (Gauge)
+    --------------------------------------- */
+    .gauge-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px 0 16px 0;
+    }
+
+    .gauge-svg {
+      width: 240px;
+      height: 125px;
+    }
+
+    .gauge-score-value {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin-top: -38px;
+      text-align: center;
+    }
+
+    .trend-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #DCFCE7;
+      color: #16A34A;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* Legend Pills Row */
+    .gauge-ranges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .range-pill {
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      background: #F8FAFC;
+      border-radius: 6px;
+      color: var(--color-text-secondary);
+    }
+
+    .note-box {
+      margin-top: 12px;
+      background: #F8FAFC;
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid #EEF2F6;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-text-muted);
+    }
+
+    /* ---------------------------------------
+       WIDGET 3: TOP 5 RISKY DRIVERS
+    --------------------------------------- */
+    .driver-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .driver-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: #F8FAFC;
+      border-radius: 14px;
+      border: 1px solid #EEF2F6;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .driver-row:hover {
+      background: #F1F5F9;
+      transform: translateY(-1px);
+    }
+
+    .driver-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .driver-avatar-mini {
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .driver-info h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .driver-plate {
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .driver-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .violation-count {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+    }
+
+    .priority-badge-high {
+      background: var(--status-high-bg);
+      color: var(--status-high-text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* ---------------------------------------
+       WIDGET 4: DRIVER ALLOCATION
+    --------------------------------------- */
+    .allocation-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .allocation-stat-box {
+      background: #F8FAFC;
+      border-radius: 14px;
+      padding: 12px;
+      border: 1px solid #EEF2F6;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-box-num {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .stat-box-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    /* Dual Segmented Progress Bar */
+    .dual-progress-bar {
+      height: 8px;
+      background: #F1F5F9;
+      border-radius: 9999px;
+      overflow: hidden;
+      display: flex;
+      margin-top: 4px;
+    }
+
+    .dual-fill-allocated {
+      width: 64%;
+      background: #16A34A;
+      height: 100%;
+    }
+
+    .dual-fill-unallocated {
+      width: 36%;
+      background: #EF4444;
+      height: 100%;
+    }
+
+    /* ---------------------------------------
+       WIDGET 5: BATTERY TEMPERATURE
+    --------------------------------------- */
+    .temp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .temp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #F8FAFC;
+      border: 1px solid #EEF2F6;
+    }
+
+    .temp-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .temp-badge-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .temp-right {
+      text-align: right;
+    }
+
+    .temp-objects-count {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    .temp-charging-sub {
+      font-size: 11px;
+      color: var(--color-text-muted);
+    }
+
+    /* Floating Action Button */
+    .fab-button {
+      position: absolute;
+      bottom: 96px;
+      right: 20px;
+      width: 58px;
+      height: 58px;
+      background: var(--color-primary);
+      border-radius: 9999px;
+      border: none;
+      color: #FFFFFF;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-fab);
+      cursor: pointer;
+      z-index: 50;
+      transition: transform 0.2s ease;
+    }
+
+    .fab-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--color-border-subtle);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 16px;
+      z-index: 40;
+    }
+
+    .nav-tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-tab-item.active {
+      color: var(--color-primary);
+    }
+
+    .nav-tab-indicator {
+      position: absolute;
+      top: -12px;
+      width: 32px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--color-primary);
+    }
+
+    /* ---------------------------------------
+       BOTTOM SHEET MODAL (Screen 7 Style)
+    --------------------------------------- */
+    .sheet-scrim {
+      position: absolute;
+      inset: 0;
+      background: var(--color-scrim);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sheet-modal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top-left-radius: var(--radius-sheet);
+      border-top-right-radius: var(--radius-sheet);
+      padding: 16px 20px 40px 20px;
+      box-shadow: var(--shadow-sheet);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 101;
+    }
+
+    .sheet-handle {
+      width: 42px;
+      height: 4px;
+      background: #CBD5E1;
+      border-radius: 9999px;
+      margin: 0 auto 16px auto;
+    }
+
+    .sheet-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .sheet-subtitle {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-bottom: 18px;
+    }
+
+    .sheet-action-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--color-border-subtle);
+      margin-bottom: 10px;
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: background 0.15s ease;
+    }
+
+    .sheet-action-item:hover {
+      background: #F8FAFC;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Preview Bar -->
+  <div class="prototype-bar">
+    <div>
+      <strong style="font-size: 14px;">Trakzee Dashboard Redesign</strong>
+      <div style="font-size: 12px; color: #94A3B8;">Faithfully redesigned with 100% of your real telematics data</div>
+    </div>
+    <span class="prototype-tag">Live Prototype</span>
+  </div>
+
+  <!-- Mobile Device Shell -->
+  <div class="phone-container">
+    
+    <!-- Atmospheric Radial Sky-Blue Glow -->
+    <div class="phone-atmospheric-glow"></div>
+    <div class="dynamic-island"></div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <span style="font-size: 11px;">5G</span>
+        <svg width="22" height="12" viewBox="0 0 22 12" fill="none"><rect x="0.5" y="0.5" width="18" height="11" rx="2.5" stroke="#0F172A"/><rect x="2" y="2" width="13" height="8" rx="1.5" fill="#0F172A"/><path d="M20 4V8" stroke="#0F172A" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+
+    <!-- Scrollable Dashboard Content -->
+    <div class="dashboard-content">
+      
+      <!-- App Header -->
+      <div class="app-header">
+        <div class="header-title-group">
+          <h1>Dashboard</h1>
+          <span>Fleet Overview & Safety Analytics</span>
+        </div>
+        <div class="header-actions">
+          <!-- Sync / Cloud Button -->
+          <button class="header-icon-btn" title="Sync Telematics">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/><path d="m11 13-3-3m0 0-3 3m3-3v8"/></svg>
+          </button>
+          <!-- Announcements Megaphone with Unread Dot -->
+          <button class="header-icon-btn" title="Announcements">
+            <div class="notification-dot"></div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+          </button>
+          <!-- More Options -->
+          <button class="header-icon-btn" title="Options">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WIDGET 1: FLEET STATUS (Donut Chart)
+      ========================================== -->
+      <div class="widget-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="card-squircle-icon" style="background: var(--category-blue-bg); color: var(--category-blue-icon);">
+              🚚
+            </div>
+            <div>
+              <div class="card-title">Fleet Status</div>
+            </div>
+          </div>
+          <span style="font-size: 11px; font-weight: 700; color: #16A34A; background: #DCFCE7; padding: 3px 8px; border-radius: 9999px;">Live</span>
+        </div>
+
+        <div class="fleet-status-body">
+          <!-- Donut Chart SVG -->
+          <div class="donut-chart-container">
+            <svg width="140" height="140" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+              <!-- Total circumference = 2 * PI * 40 = ~251.32 -->
+              <!-- No Data: 35.71% -> 89.7 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#94A3B8" stroke-width="12" stroke-dasharray="89.7 251.32" stroke-dashoffset="0" />
+              <!-- InActive: 33.10% -> 83.2 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#0095FF" stroke-width="12" stroke-dasharray="83.2 251.32" stroke-dashoffset="-89.7" />
+              <!-- Running: 18.57% -> 46.7 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#10B981" stroke-width="12" stroke-dasharray="46.7 251.32" stroke-dashoffset="-172.9" />
+              <!-- Stopped: 10.95% -> 27.5 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#EF4444" stroke-width="12" stroke-dasharray="27.5 251.32" stroke-dashoffset="-219.6" />
+              <!-- Idle: 1.19% -> 3.0 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F59E0B" stroke-width="12" stroke-dasharray="3.0 251.32" stroke-dashoffset="-247.1" />
+              <!-- Expired: 0.24% -> 1.0 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#991B1B" stroke-width="12" stroke-dasharray="1.0 251.32" stroke-dashoffset="-250.1" />
+            </svg>
+            <div class="donut-center-text">
+              <div class="donut-center-number">420</div>
+              <div class="donut-center-sub">Objects</div>
+            </div>
+          </div>
+
+          <!-- Legend Rows -->
+          <div class="fleet-legend-grid">
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #10B981;"></span>Running</span>
+              <div><span class="legend-val">78</span><span class="legend-pct">(18.57%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #F59E0B;"></span>Idle</span>
+              <div><span class="legend-val">5</span><span class="legend-pct">(1.19%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #EF4444;"></span>Stopped</span>
+              <div><span class="legend-val">46</span><span class="legend-pct">(10.95%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #0095FF;"></span>InActive</span>
+              <div><span class="legend-val">139</span><span class="legend-pct">(33.10%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #94A3B8;"></span>No Data</span>
+              <div><span class="legend-val">150</span><span class="legend-pct">(35.71%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #991B1B;"></span>Expired</span>
+              <div><span class="legend-val">1</span><span class="legend-pct">(0.24%)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Object Availability Sub-Card -->
+        <div class="availability-card">
+          <div class="availability-title">Object Availability</div>
+          <div class="availability-stat">
+            <div class="availability-pct">30.95%</div>
+            <div class="availability-sub">130 of 420 Objects</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WIDGET 2: FLEET AVERAGE SCORE (Gauge)
+      ========================================== -->
+      <div class="widget-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="card-squircle-icon" style="background: var(--category-green-bg); color: var(--category-green-icon);">
+              🛡️
+            </div>
+            <div class="card-title">Fleet Average Score</div>
+          </div>
+          <button class="filter-pill-btn" onclick="toggleFilter(this)">
+            <span>📅 Last 7 days</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <!-- Gauge Speedometer Arc -->
+        <div class="gauge-wrapper">
+          <svg class="gauge-svg" viewBox="0 0 200 110">
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#EF4444" />
+                <stop offset="50%" stop-color="#F59E0B" />
+                <stop offset="100%" stop-color="#10B981" />
+              </linearGradient>
+            </defs>
+            <!-- Gauge Background Track -->
+            <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#F1F5F9" stroke-width="14" stroke-linecap="round" />
+            <!-- Active Gradient Filled Arc (97.68% fill) -->
+            <path d="M 20 100 A 80 80 0 0 1 176 90" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round" />
+            <!-- Needle / Marker Dot at Excellent Zone -->
+            <circle cx="176" cy="90" r="8" fill="#10B981" stroke="#FFFFFF" stroke-width="3" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));" />
+          </svg>
+          
+          <div class="gauge-score-value">97.68</div>
+          <div class="trend-pill-badge">▲ 0.23% in last 7 days</div>
+        </div>
+
+        <!-- Legend Ranges -->
+        <div class="gauge-ranges">
+          <div class="range-pill"><span class="status-dot-indicator" style="background: #EF4444;"></span> Poor (0–50)</div>
+          <div class="range-pill"><span class="status-dot-indicator" style="background: #F59E0B;"></span> Fair (51–89)</div>
+          <div class="range-pill" style="background: #DCFCE7; color: #16A34A;"><span class="status-dot-indicator" style="background: #16A34A;"></span> Excellent (90–100)</div>
+        </div>
+
+        <div class="note-box">
+          <strong>*Note:</strong> Fleet Average Score represents the overall safety rating of your drivers, calculated from speeding, distraction, fatigue, and harsh braking events.
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WIDGET 3: TOP 5 RISKY DRIVERS
+      ========================================== -->
+      <div class="widget-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="card-squircle-icon" style="background: var(--category-orange-bg); color: var(--category-orange-icon);">
+              ⚠️
+            </div>
+            <div>
+              <div class="card-title">Top 5 Risky Drivers</div>
+            </div>
+          </div>
+          <button class="filter-pill-btn" onclick="toggleFilter(this)">
+            <span>📅 Today</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="driver-list">
+          <!-- Driver 1 -->
+          <div class="driver-row" onclick="openDriverSheet('HP FMC130 Driver 1', 'HPD14', 5)">
+            <div class="driver-left">
+              <div class="driver-avatar-mini" style="background: #EDE9FE; color: #6D28D9;">D1</div>
+              <div class="driver-info">
+                <h4>HP FMC130 Driver 1</h4>
+                <div class="driver-plate">Vehicle: HPD14</div>
+              </div>
+            </div>
+            <div class="driver-right">
+              <span class="violation-count">5</span>
+              <span class="priority-badge-high">High</span>
+            </div>
+          </div>
+
+          <!-- Driver 2 -->
+          <div class="driver-row" onclick="openDriverSheet('HP H20P Driver 1', 'HPH20PD1', 19)">
+            <div class="driver-left">
+              <div class="driver-avatar-mini" style="background: #FEE2E2; color: #DC2626;">D2</div>
+              <div class="driver-info">
+                <h4>HP H20P Driver 1</h4>
+                <div class="driver-plate">Vehicle: HPH20PD1</div>
+              </div>
+            </div>
+            <div class="driver-right">
+              <span class="violation-count">19</span>
+              <span class="priority-badge-high">High</span>
+            </div>
+          </div>
+
+          <!-- Driver 3 -->
+          <div class="driver-row" onclick="openDriverSheet('HP Howen Driver 1', 'HPD15', 6)">
+            <div class="driver-left">
+              <div class="driver-avatar-mini" style="background: #DCFCE7; color: #15803D;">D3</div>
+              <div class="driver-info">
+                <h4>HP Howen Driver 1</h4>
+                <div class="driver-plate">Vehicle: HPD15</div>
+              </div>
+            </div>
+            <div class="driver-right">
+              <span class="violation-count">6</span>
+              <span class="priority-badge-high">High</span>
+            </div>
+          </div>
+
+          <!-- Driver 4 -->
+          <div class="driver-row" onclick="openDriverSheet('HP Tipper Status Driver', 'HPMD065', 2)">
+            <div class="driver-left">
+              <div class="driver-avatar-mini" style="background: #E0F2FE; color: #0369A1;">D4</div>
+              <div class="driver-info">
+                <h4>HP Tipper Status Driver</h4>
+                <div class="driver-plate">Vehicle: HPMD065</div>
+              </div>
+            </div>
+            <div class="driver-right">
+              <span class="violation-count">2</span>
+              <span class="priority-badge-high">High</span>
+            </div>
+          </div>
+
+          <!-- Driver 5 -->
+          <div class="driver-row" onclick="openDriverSheet('HP Immobilize Driver', 'HPMD043', 2)">
+            <div class="driver-left">
+              <div class="driver-avatar-mini" style="background: #FFEDD5; color: #C2410C;">D5</div>
+              <div class="driver-info">
+                <h4>HP Immobilize Driver</h4>
+                <div class="driver-plate">Vehicle: HPMD043</div>
+              </div>
+            </div>
+            <div class="driver-right">
+              <span class="violation-count">2</span>
+              <span class="priority-badge-high">High</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WIDGET 4: DRIVER ALLOCATION
+      ========================================== -->
+      <div class="widget-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="card-squircle-icon" style="background: var(--category-purple-bg); color: var(--category-purple-icon);">
+              👤
+            </div>
+            <div class="card-title">Driver Allocation</div>
+          </div>
+          <span style="font-size: 12px; color: var(--color-text-secondary); font-weight: 600;">549 Total</span>
+        </div>
+
+        <div class="allocation-stats-grid">
+          <!-- Allocated Box -->
+          <div class="allocation-stat-box">
+            <div class="card-squircle-icon" style="background: #DCFCE7; color: #16A34A; width: 32px; height: 32px; font-size: 14px;">
+              ✓
+            </div>
+            <div>
+              <div class="stat-box-label">Allocated</div>
+              <div class="stat-box-num" style="color: #16A34A;">351</div>
+            </div>
+          </div>
+
+          <!-- Unallocated Box -->
+          <div class="allocation-stat-box">
+            <div class="card-squircle-icon" style="background: #FEE2E2; color: #EF4444; width: 32px; height: 32px; font-size: 14px;">
+              ✕
+            </div>
+            <div>
+              <div class="stat-box-label">Unallocated</div>
+              <div class="stat-box-num" style="color: #EF4444;">198</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proportional Progress Bar -->
+        <div class="dual-progress-bar">
+          <div class="dual-fill-allocated" title="Allocated (64%)"></div>
+          <div class="dual-fill-unallocated" title="Unallocated (36%)"></div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WIDGET 5: STATE OF HEALTH (SOH)
+      ========================================== -->
+      <div class="widget-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="card-squircle-icon" style="background: var(--category-pink-bg); color: var(--category-pink-icon);">
+              ❤️
+            </div>
+            <div class="card-title">State Of Health (SOH)</div>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--color-primary);">Battery Diagnostic</span>
+        </div>
+
+        <div class="fleet-status-body">
+          <div class="donut-chart-container">
+            <svg width="140" height="140" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+              <!-- Total circumference = 251.32 -->
+              <!-- NA: 30.5% -> 76.6 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#CBD5E1" stroke-width="12" stroke-dasharray="76.6 251.32" stroke-dashoffset="0" />
+              <!-- Healthy (81-100%): 8.4% -> 21.1 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#10B981" stroke-width="12" stroke-dasharray="21.1 251.32" stroke-dashoffset="-76.6" />
+              <!-- Moderate (51-80%): 10.7% -> 26.9 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#FBBF24" stroke-width="12" stroke-dasharray="26.9 251.32" stroke-dashoffset="-97.7" />
+              <!-- Low (21-50%): 9.3% -> 23.4 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F97316" stroke-width="12" stroke-dasharray="23.4 251.32" stroke-dashoffset="-124.6" />
+              <!-- Critical (0-20%): 5.7% -> 14.3 -->
+              <circle cx="50" cy="50" r="40" fill="transparent" stroke="#EF4444" stroke-width="12" stroke-dasharray="14.3 251.32" stroke-dashoffset="-148.0" />
+            </svg>
+            <div class="donut-center-text">
+              <div class="donut-center-number">419</div>
+              <div class="donut-center-sub">Objects</div>
+            </div>
+          </div>
+
+          <div class="fleet-legend-grid">
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #10B981;"></span>Healthy (81–100%)</span>
+              <div><span class="legend-val">35</span><span class="legend-pct">(8%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #FBBF24;"></span>Moderate (51–80%)</span>
+              <div><span class="legend-val">45</span><span class="legend-pct">(11%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #F97316;"></span>Low (21–50%)</span>
+              <div><span class="legend-val">39</span><span class="legend-pct">(9%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #EF4444;"></span>Critical (0–20%)</span>
+              <div><span class="legend-val">24</span><span class="legend-pct">(6%)</span></div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-name"><span class="status-dot-indicator" style="background: #CBD5E1;"></span>NA / Offline</span>
+              <div><span class="legend-val">128</span><span class="legend-pct">(31%)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           WIDGET 6: BATTERY TEMPERATURE
+      ========================================== -->
+      <div class="widget-card">
+        <div class="card-header">
+          <div class="card-header-left">
+            <div class="card-squircle-icon" style="background: var(--category-salmon-bg); color: var(--category-salmon-icon);">
+              🌡️
+            </div>
+            <div class="card-title">Battery Temperature</div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+
+        <div class="temp-list">
+          <!-- Below 20°C -->
+          <div class="temp-row">
+            <div class="temp-left">
+              <div class="card-squircle-icon" style="background: #E0F2FE; color: #0284C7; width: 34px; height: 34px;">❄️</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">Below 20°C</div>
+                <span class="temp-badge-pill" style="background: #E0F2FE; color: #0284C7;">Cold</span>
+              </div>
+            </div>
+            <div class="temp-right">
+              <div class="temp-objects-count">139 Objects</div>
+              <div class="temp-charging-sub">0 in Charging</div>
+            </div>
+          </div>
+
+          <!-- 20 - 40°C -->
+          <div class="temp-row">
+            <div class="temp-left">
+              <div class="card-squircle-icon" style="background: #DCFCE7; color: #16A34A; width: 34px; height: 34px;">⚡</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">20 – 40°C</div>
+                <span class="temp-badge-pill" style="background: #DCFCE7; color: #16A34A;">Operational</span>
+              </div>
+            </div>
+            <div class="temp-right">
+              <div class="temp-objects-count">20 Objects</div>
+              <div class="temp-charging-sub">0 in Charging</div>
+            </div>
+          </div>
+
+          <!-- 40 - 60°C -->
+          <div class="temp-row">
+            <div class="temp-left">
+              <div class="card-squircle-icon" style="background: #FEF3C7; color: #D97706; width: 34px; height: 34px;">🔥</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">40 – 60°C</div>
+                <span class="temp-badge-pill" style="background: #FEF3C7; color: #D97706;">High</span>
+              </div>
+            </div>
+            <div class="temp-right">
+              <div class="temp-objects-count">9 Objects</div>
+              <div class="temp-charging-sub">0 in Charging</div>
+            </div>
+          </div>
+
+          <!-- Above 60°C -->
+          <div class="temp-row">
+            <div class="temp-left">
+              <div class="card-squircle-icon" style="background: #FEE2E2; color: #DC2626; width: 34px; height: 34px;">🚨</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 700;">Above 60°C</div>
+                <span class="temp-badge-pill" style="background: #FEE2E2; color: #DC2626;">Alarming</span>
+              </div>
+            </div>
+            <div class="temp-right">
+              <div class="temp-objects-count">101 Objects</div>
+              <div class="temp-charging-sub">0 in Charging</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Floating Action Button (FAB) -->
+    <button class="fab-button" onclick="openActionSheet()" title="Quick Actions">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </button>
+
+    <!-- Bottom Navigation Bar (5 tabs with top line indicator) -->
+    <div class="bottom-nav-bar">
+      <div class="nav-tab-item active">
+        <div class="nav-tab-indicator"></div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        <span>Home</span>
+      </div>
+      <div class="nav-tab-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Track</span>
+      </div>
+      <div class="nav-tab-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Alerts</span>
+      </div>
+      <div class="nav-tab-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+        <span>Reports</span>
+      </div>
+      <div class="nav-tab-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>More</span>
+      </div>
+    </div>
+
+    <!-- Bottom Sheet Scrim & Modal Container -->
+    <div class="sheet-scrim" id="sheetScrim" onclick="closeSheet()"></div>
+    <div class="sheet-modal" id="sheetModal">
+      <div class="sheet-handle"></div>
+      <div class="sheet-title" id="sheetTitle">Quick Telematics Action</div>
+      <div class="sheet-subtitle" id="sheetSubtitle">Select an action for the fleet</div>
+
+      <div id="sheetContent">
+        <div class="sheet-action-item">
+          <div class="card-squircle-icon" style="background: #E0F2FE; color: #0284C7;">🚚</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 700;">Assign Vehicle</div>
+            <div style="font-size: 12px; color: #64748B;">Pair unallocated driver with available truck</div>
+          </div>
+        </div>
+
+        <div class="sheet-action-item">
+          <div class="card-squircle-icon" style="background: #F3E8FF; color: #9333EA;">📍</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 700;">Create Geofence Zone</div>
+            <div style="font-size: 12px; color: #64748B;">Draw a circle or polygon fence alert</div>
+          </div>
+        </div>
+
+        <div class="sheet-action-item">
+          <div class="card-squircle-icon" style="background: #DCFCE7; color: #16A34A;">⛽</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 700;">Log Fuel Refill</div>
+            <div style="font-size: 12px; color: #64748B;">Record volume and fuel receipt</div>
+          </div>
+        </div>
+
+        <div class="sheet-action-item">
+          <div class="card-squircle-icon" style="background: #FEE2E2; color: #DC2626;">🚨</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 700;">Raise Maintenance Ticket</div>
+            <div style="font-size: 12px; color: #64748B;">Report engine trouble or sensor fault</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleFilter(btn) {
+      const current = btn.querySelector('span').innerText;
+      if (current.includes('7 days')) {
+        btn.querySelector('span').innerText = '📅 Today';
+      } else if (current.includes('Today')) {
+        btn.querySelector('span').innerText = '📅 Last 30 days';
+      } else {
+        btn.querySelector('span').innerText = '📅 Last 7 days';
+      }
+    }
+
+    function openActionSheet() {
+      document.getElementById('sheetTitle').innerText = 'Quick Telematics Actions';
+      document.getElementById('sheetSubtitle').innerText = 'Dispatch, allocate or monitor assets';
+      document.getElementById('sheetScrim').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('sheetScrim').style.opacity = '1';
+        document.getElementById('sheetModal').style.transform = 'translateY(0)';
+      }, 10);
+    }
+
+    function openDriverSheet(name, plate, violations) {
+      document.getElementById('sheetTitle').innerText = name;
+      document.getElementById('sheetSubtitle').innerText = 'Vehicle ' + plate + ' • ' + violations + ' Violations detected today';
+      
+      document.getElementById('sheetContent').innerHTML = `
+        <div style="background: #FEE2E2; border-radius: 14px; padding: 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #DC2626; font-size: 13px; font-weight: 700;">Safety Status: High Risk Alert</span>
+          <span style="background: #EF4444; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 9999px;">${violations} Flags</span>
+        </div>
+        <div class="sheet-action-item">
+          <div class="card-squircle-icon" style="background: #FEF3C7; color: #D97706;">⚡</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 700;">Speeding Violations (3x)</div>
+            <div style="font-size: 12px; color: #64748B;">Peak 94 km/h in 60 km/h urban zone</div>
+          </div>
+        </div>
+        <div class="sheet-action-item">
+          <div class="card-squircle-icon" style="background: #FEE2E2; color: #DC2626;">🛑</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 700;">Harsh Braking (2x)</div>
+            <div style="font-size: 12px; color: #64748B;">Deceleration > 0.45g on Highway 4</div>
+          </div>
+        </div>
+        <button style="width: 100%; height: 50px; background: #0095FF; color: #fff; border: none; border-radius: 16px; font-size: 15px; font-weight: 700; margin-top: 10px; cursor: pointer; box-shadow: 0 8px 20px rgba(0,149,255,0.28);" onclick="closeSheet()">Call Driver</button>
+      `;
+
+      document.getElementById('sheetScrim').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('sheetScrim').style.opacity = '1';
+        document.getElementById('sheetModal').style.transform = 'translateY(0)';
+      }, 10);
+    }
+
+    function closeSheet() {
+      document.getElementById('sheetScrim').style.opacity = '0';
+      document.getElementById('sheetModal').style.transform = 'translateY(100%)';
+      setTimeout(() => {
+        document.getElementById('sheetScrim').style.display = 'none';
+      }, 300);
+    }
+  </script>
+</body>
+</html>
